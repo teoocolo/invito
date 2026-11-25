@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Un Invito Speciale • Amore Mio</title>
+    
+    <!-- Importazione Font Eleganti da Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS per layout e utilità responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Variabili Palette "Midnight Sakura & Candlelight" */
+        :root {
+            --bg-deep: #07050a;
+            --bg-velvet: #140812;
+            --ruby-glow: rgba(158, 27, 50, 0.35);
+            --gold-champagne: #e8cfa9;
+            --gold-bright: #fff0d4;
+            --sakura-pink: #f4b8c8;
+            --glass-bg: rgba(20, 12, 18, 0.55);
+            --glass-border: rgba(232, 207, 169, 0.28);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg-deep);
+            color: var(--gold-bright);
+            font-family: 'Montserrat', sans-serif;
+            user-select: none;
+        }
+
+        /* Sfondo atmosferico multistrato con sfumature vellutate */
+        .ambient-backdrop {
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 50% 25%, rgba(232, 207, 169, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 20% 80%, var(--ruby-glow) 0%, transparent 55%),
+                radial-gradient(circle at 80% 75%, rgba(244, 184, 200, 0.14) 0%, transparent 50%),
+                linear-gradient(160deg, #060409 0%, #120710 50%, #09050c 100%);
+            z-index: 0;
+        }
+
+        /* Luna piena giapponese luminosa con effetto parallasse */
+        .zen-moon {
+            position: fixed;
+            top: 10%;
+            right: 14%;
+            width: clamp(110px, 18vw, 220px);
+            height: clamp(110px, 18vw, 220px);
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #fff9eb 0%, #f3d7aa 45%, rgba(232, 207, 169, 0.15) 75%, transparent 100%);
+            box-shadow: 
+                0 0 60px rgba(232, 207, 169, 0.25),
+                0 0 120px rgba(190, 50, 80, 0.18);
+            opacity: 0.75;
+            pointer-events: none;
+            z-index: 1;
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            animation: moonBreath 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes moonBreath {
+            0% { transform: scale(1); opacity: 0.7; }
+            100% { transform: scale(1.04); opacity: 0.85; }
+        }
+
+        /* Lanterne sospese morbide sullo sfondo */
+        .lantern {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(22px);
+            pointer-events: none;
+            z-index: 1;
+            animation: floatLantern 12s ease-in-out infinite alternate;
+        }
+
+        .lantern-1 {
+            width: 140px;
+            height: 180px;
+            top: 18%;
+            left: 10%;
+            background: radial-gradient(circle, rgba(220, 65, 85, 0.32), transparent 70%);
+        }
+
+        .lantern-2 {
+            width: 180px;
+            height: 220px;
+            bottom: 12%;
+            right: 12%;
+            background: radial-gradient(circle, rgba(232, 175, 110, 0.24), transparent 70%);
+            animation-delay: -5s;
+        }
+
+        @keyframes floatLantern {
+            0% { transform: translateY(0px) translateX(0px); }
+            100% { transform: translateY(-25px) translateX(12px); }
+        }
+
+        /* Canvas interattivo a tutto schermo */
+        #sakura-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Pulsante Audio Fluttuante in alto a destra */
+        .audio-btn {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.25rem;
+            z-index: 50;
+            background: rgba(20, 12, 18, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            color: var(--gold-champagne);
+            padding: 0.6rem 1rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.35s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .audio-btn:hover {
+            border-color: var(--gold-bright);
+            box-shadow: 0 0 18px rgba(232, 207, 169, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .sound-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 12px;
+        }
+
+        .sound-bars span {
+            width: 2px;
+            height: 4px;
+            background-color: var(--gold-champagne);
+            border-radius: 2px;
+            transition: height 0.2s ease;
+        }
+
+        .audio-btn.playing .sound-bars span {
+            animation: soundWave 0.9s ease-in-out infinite alternate;
+        }
+        .audio-btn.playing .sound-bars span:nth-child(2) { animation-delay: 0.2s; }
+        .audio-btn.playing .sound-bars span:nth-child(3) { animation-delay: 0.4s; }
+        .audio-btn.playing .sound-bars span:nth-child(4) { animation-delay: 0.15s; }
+
+        @keyframes soundWave {
+            0% { height: 3px; }
+            100% { height: 12px; }
+        }
+
+        /* Schermata 1: Sigillo d'Amore (Envelope / Seal Overlay) */
+        #seal-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 30;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: radial-gradient(circle at center, rgba(22, 10, 18, 0.72) 0%, rgba(7, 5, 10, 0.92) 100%);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), visibility 1.2s;
+        }
+
+        #seal-screen.opened {
+            opacity: 0;
+            transform: scale(1.08);
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .envelope-card {
+            position: relative;
+            max-width: 420px;
+            width: 100%;
+            padding: 3rem 2rem;
+            border-radius: 28px;
+            background: linear-gradient(145deg, rgba(30, 15, 24, 0.85), rgba(14, 8, 13, 0.92));
+            border: 1px solid rgba(232, 207, 169, 0.32);
+            box-shadow: 
+                0 25px 60px rgba(0, 0, 0, 0.75),
+                inset 0 0 30px rgba(232, 207, 169, 0.06);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Sigillo in ceralacca / oro pulsante */
+        .wax-seal {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #f5dfb8 0%, #c89d62 55%, #8a6230 100%);
+            box-shadow: 
+                0 0 0 6px rgba(232, 207, 169, 0.14),
+                0 10px 30px rgba(0, 0, 0, 0.6),
+                0 0 25px rgba(232, 207, 169, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.75rem;
+            cursor: pointer;
+            position: relative;
+            animation: sealPulse 2.4s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .wax-seal:hover {
+            transform: scale(1.08);
+        }
+
+        .wax-seal::after {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border-radius: 50%;
+            border: 1px dashed rgba(65, 38, 12, 0.55);
+        }
+
+        @keyframes sealPulse {
+            0%, 100% { box-shadow: 0 0 0 5px rgba(232, 207, 169, 0.12), 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 20px rgba(232, 207, 169, 0.35); }
+            50% { box-shadow: 0 0 0 12px rgba(232, 207, 169, 0.04), 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 38px rgba(232, 207, 169, 0.65); }
+        }
+
+        .seal-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.55rem;
+            color: var(--gold-bright);
+            letter-spacing: 0.03em;
+            margin-bottom: 0.5rem;
+        }
+
+        .seal-hint {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: var(--sakura-pink);
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .open-btn {
+            background: linear-gradient(135deg, rgba(232, 207, 169, 0.18), rgba(158, 27, 50, 0.35));
+            border: 1px solid var(--gold-champagne);
+            color: var(--gold-bright);
+            padding: 0.9rem 2.2rem;
+            border-radius: 9999px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 20px rgba(232, 207, 169, 0.15);
+        }
+
+        .open-btn:hover {
+            background: var(--gold-champagne);
+            color: #140812;
+            box-shadow: 0 0 30px rgba(232, 207, 169, 0.55);
+            transform: translateY(-2px);
+        }
+
+        /* Schermata 2: Invito Principale in Glassmorphism */
+        #invitation-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem;
+            opacity: 0;
+            transform: translateY(20px) scale(0.97);
+            transition: opacity 1.4s ease 0.3s, transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+            pointer-events: none;
+        }
+
+        #invitation-container.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .glass-card {
+            position: relative;
+            width: 100%;
+            max-width: 720px;
+            max-height: 92vh;
+            overflow-y: auto;
+            padding: clamp(1.75rem, 4.5vw, 3.5rem) clamp(1.4rem, 4vw, 3.2rem);
+            border-radius: 32px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 
+                0 30px 70px rgba(0, 0, 0, 0.65),
+                inset 0 0 40px rgba(244, 184, 200, 0.05),
+                0 0 50px rgba(158, 27, 50, 0.18);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            scrollbar-width: none;
+        }
+
+        .glass-card::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Ornamento superiore */
+        .ornament-top {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            opacity: 0.85;
+        }
+
+        .ornament-line {
+            width: 48px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-champagne), transparent);
+        }
+
+        /* Frase Principale Animata Parola per Parola */
+        .main-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.65rem, 4.2vw, 2.65rem);
+            font-weight: 400;
+            line-height: 1.38;
+            color: var(--gold-bright);
+            text-shadow: 0 2px 18px rgba(232, 207, 169, 0.25);
+            margin-bottom: 1.1rem;
+            max-width: 620px;
+        }
+
+        .reveal-word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(14px);
+            filter: blur(6px);
+            transition: opacity 0.85s ease, transform 0.85s cubic-bezier(0.22, 1, 0.36, 1), filter 0.85s ease, text-shadow 0.85s ease;
+        }
+
+        .reveal-word.shown {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        .reveal-word.highlight {
+            color: #ffdfe8;
+            font-style: italic;
+            font-weight: 600;
+            text-shadow: 0 0 22px rgba(244, 184, 200, 0.55);
+        }
+
+        /* Firma Poetica "amore mio" */
+        .amore-mio-wrapper {
+            margin: 0.5rem 0 1.85rem 0;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1.3s ease, transform 1.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .amore-mio-wrapper.shown {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .amore-mio {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3rem, 7.5vw, 4.75rem);
+            line-height: 1.1;
+            background: linear-gradient(120deg, #fff3dc 15%, #f7b8ca 50%, #e8cfa9 85%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 0 18px rgba(244, 184, 200, 0.45));
+            animation: heartbeatGlow 3.2s ease-in-out infinite;
+            padding: 0 0.5rem;
+        }
+
+        @keyframes heartbeatGlow {
+            0%, 100% { 
+                transform: scale(1); 
+                filter: drop-shadow(0 0 14px rgba(244, 184, 200, 0.35));
+            }
+            15% { 
+                transform: scale(1.045); 
+                filter: drop-shadow(0 0 26px rgba(244, 184, 200, 0.75));
+            }
+            30% { 
+                transform: scale(1.01); 
+            }
+            45% { 
+                transform: scale(1.035); 
+                filter: drop-shadow(0 0 22px rgba(232, 207, 169, 0.65));
+            }
+        }
+
+        /* Griglia Dettagli Eleganti */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.85rem;
+            width: 100%;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .details-grid.shown {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 640px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 0.65rem;
+            }
+        }
+
+        .detail-pill {
+            background: rgba(255, 245, 235, 0.04);
+            border: 1px solid rgba(232, 207, 169, 0.18);
+            border-radius: 18px;
+            padding: 0.85rem 0.75rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .detail-pill:hover {
+            transform: translateY(-2px);
+            border-color: rgba(244, 184, 200, 0.45);
+            background: rgba(244, 184, 200, 0.07);
+        }
+
+        .detail-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--sakura-pink);
+            opacity: 0.85;
+        }
+
+        .detail-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.12rem;
+            font-weight: 600;
+            color: var(--gold-bright);
+        }
+
+        /* Pulsante Interattivo Finale & Messaggio di Conferma */
+        .cta-area {
+            min-height: 64px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .cta-area.shown {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .love-confirm-btn {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #9e1b32 0%, #6d1022 50%, #8e192e 100%);
+            border: 1px solid rgba(244, 184, 200, 0.55);
+            color: #fff6f0;
+            padding: 0.95rem 2.3rem;
+            border-radius: 9999px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 
+                0 10px 28px rgba(158, 27, 50, 0.45),
+                0 0 20px rgba(244, 184, 200, 0.25);
+            transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .love-confirm-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 
+                0 14px 35px rgba(158, 27, 50, 0.65),
+                0 0 30px rgba(244, 184, 200, 0.45);
+            border-color: var(--gold-bright);
+        }
+
+        .love-confirm-btn:active {
+            transform: scale(0.97);
+        }
+
+        .confirmed-message {
+            display: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: clamp(1.3rem, 3.2vw, 1.65rem);
+            color: var(--gold-bright);
+            text-shadow: 0 0 20px rgba(244, 184, 200, 0.65);
+            animation: fadeInScale 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            padding: 0.5rem 1rem;
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.88) translateY(8px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sfondo atmosferico multistrato -->
+    <div class="ambient-backdrop"></div>
+    
+    <!-- Luna piena luminosa con parallasse -->
+    <div class="zen-moon" id="zen-moon"></div>
+    
+    <!-- Lanterne morbide sullo sfondo -->
+    <div class="lantern lantern-1"></div>
+    <div class="lantern lantern-2"></div>
+
+    <!-- Canvas HTML5 per petali Sakura, scintille dorate ed esplosioni di cuori -->
+    <canvas id="sakura-canvas"></canvas>
+
+    <!-- Toggle Musica Ambientale Romantica (Web Audio API) -->
+    <button id="audio-toggle" class="audio-btn" aria-label="Attiva o disattiva melodia romantica">
+        <div class="sound-bars">
+            <span></span><span></span><span></span><span></span>
+        </div>
+        <span id="audio-label">Melodia</span>
+    </button>
+
+    <!-- SCHERMATA 1: Sigillo d'Amore -->
+    <section id="seal-screen">
+        <div class="envelope-card">
+            <div class="wax-seal" id="wax-seal" role="button" tabindex="0" aria-label="Apri il sigillo d'amore">
+                <!-- Icona Cuore Dorato SVG -->
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="#3d1e08" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+            
+            <h2 class="seal-subtitle">Un invito speciale per te...</h2>
+            <p class="seal-hint">Tocca il sigillo per svelarlo</p>
+            
+            <button id="open-invite-btn" class="open-btn">
+                Apri il tuo invito
+            </button>
+        </div>
+    </section>
+
+    <!-- SCHERMATA 2: Contenuto dell'Invito Romantico -->
+    <main id="invitation-container">
+        <article class="glass-card">
+            <!-- Ornamento Sakura & Oro -->
+            <div class="ornament-top">
+                <span class="ornament-line"></span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e8cfa9" stroke-width="1.5">
+                    <path d="M12 2C13.5 6 17 7.5 21 9C17 10.5 13.5 12 12 16C10.5 12 7 10.5 3 9C7 7.5 10.5 6 12 2Z" fill="rgba(244, 184, 200, 0.25)"/>
+                </svg>
+                <span class="ornament-line"></span>
+            </div>
+
+            <!-- Frase Principale Esatta con rivelazione poetica -->
+            <h1 class="main-quote" id="main-quote" aria-label="Ci vediamo al sushi romance di trecate venerdi sera per una cena intima e romantica">
+                <!-- Le parole verranno popolate e animate dinamicamente via JS -->
+            </h1>
+
+            <!-- Enfasi Poetica: "amore mio" -->
+            <div class="amore-mio-wrapper" id="amore-mio-wrapper">
+                <p class="amore-mio">amore mio</p>
+            </div>
+
+            <!-- Dettagli della serata -->
+            <div class="details-grid" id="details-grid">
+                <div class="detail-pill">
+                    <span class="detail-label">Quando</span>
+                    <span class="detail-value">Venerdì Sera</span>
+                </div>
+                <div class="detail-pill">
+                    <span class="detail-label">Dove</span>
+                    <span class="detail-value">Sushi Romance • Trecate</span>
+                </div>
+                <div class="detail-pill">
+                    <span class="detail-label">Atmosfera</span>
+                    <span class="detail-value">Intima &amp; Lume di Candela</span>
+                </div>
+            </div>
+
+            <!-- Pulsante Interattivo Finale -->
+            <div class="cta-area" id="cta-area">
+                <button id="confirm-btn" class="love-confirm-btn">
+                    <span>Non vedo l'ora</span>
+                    <span>❤️</span>
+                </button>
+                <p id="confirmed-msg" class="confirmed-message">
+                    Sarà una serata indimenticabile. Ti amo ✨
+                </p>
+            </div>
+        </article>
+    </main>
+
+    <script>
+        /**
+         * 1. SINTETIZZATORE MELODIA AMBIENTALE ROMANTICA (Web Audio API)
+         * Genera dolci accordi arpeggiati stile carillon / pianoforte caldo
+         * senza alcuna dipendenza da file audio esterni.
+         */
+        class RomanticMusicBox {
+            constructor() {
+                this.ctx = null;
+                this.isPlaying = false;
+                this.timer = null;
+                this.step = 0;
+                // Progressione armonica romantica (Fa Mag7 -> Mi min7 -> Re min7 -> Do Mag9)
+                this.chords = [
+                    [349.23, 440.00, 523.25, 659.25, 783.99], // Fmaj9
+                    [329.63, 392.00, 493.88, 587.33, 739.99], // Em7
+                    [293.66, 349.23, 440.00, 523.25, 659.25], // Dm9
+                    [261.63, 329.63, 392.00, 493.88, 587.33]  // Cmaj9
+                ];
+            }
+
+            init() {
+                if (!this.ctx) {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    this.ctx = new AudioCtx();
+                }
+                if (this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+
+            playNote(freq, duration = 2.6, volume = 0.045) {
+                if (!this.ctx || !this.isPlaying) return;
+                const now = this.ctx.currentTime;
+
+                const osc = this.ctx.createOscillator();
+                const subOsc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+
+                // Timbro morbido simile a celesta / piano elettrico caldo
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, now);
+
+                subOsc.type = 'triangle';
+                subOsc.frequency.setValueAtTime(freq * 2, now);
+
+                const subGain = this.ctx.createGain();
+                subGain.gain.setValueAtTime(0.12, now);
+
+                gain.gain.setValueAtTime(0.0001, now);
+                gain.gain.exponentialRampToValueAtTime(volume, now + 0.08);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+                osc.connect(gain);
+                subOsc.connect(subGain);
+                subGain.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                osc.start(now);
+                subOsc.start(now);
+                osc.stop(now + duration + 0.1);
+                subOsc.stop(now + duration + 0.1);
+            }
+
+            start() {
+                this.init();
+                if (this.isPlaying) return;
+                this.isPlaying = true;
+
+                const tick = () => {
+                    if (!this.isPlaying) return;
+                    const chordIndex = Math.floor(this.step / 5) % this.chords.length;
+                    const noteIndex = this.step % 5;
+                    const freq = this.chords[chordIndex][noteIndex];
+                    this.playNote(freq, 3.2, noteIndex === 0 ? 0.055 : 0.038);
+                    this.step++;
+                };
+
+                tick();
+                this.timer = setInterval(tick, 680);
+            }
+
+            stop() {
+                this.isPlaying = false;
+                if (this.timer) {
+                    clearInterval(this.timer);
+                    this.timer = null;
+                }
+            }
+
+            toggle() {
+                if (this.isPlaying) {
+                    this.stop();
+                    return false;
+                } else {
+                    this.start();
+                    return true;
+                }
+            }
+        }
+
+        const musicBox = new RomanticMusicBox();
+        const audioBtn = document.getElementById('audio-toggle');
+        const audioLabel = document.getElementById('audio-label');
+
+        audioBtn.addEventListener('click', () => {
+            const playing = musicBox.toggle();
+            audioBtn.classList.toggle('playing', playing);
+            audioLabel.textContent = playing ? 'In ascolto' : 'Melodia';
+        });
+
+
+        /**
+         * 2. CANVAS INTERATTIVO: PETALI SAKURA, SCINTILLE DORATE & CUORI CELEBRATIVI
+         */
+        const canvas = document.getElementById('sakura-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const petals = [];
+        const sparkles = [];
+        const hearts = [];
+        const pointer = { x: width / 2, y: height / 2, active: false };
+
+        // Classe Petalo di Ciliegio (Sakura)
+        class SakuraPetal {
+            constructor(burst = false, originX = null, originY = null) {
+                this.reset(burst, originX, originY);
+            }
+
+            reset(burst = false, originX = null, originY = null) {
+                if (burst && originX !== null && originY !== null) {
+                    this.x = originX;
+                    this.y = originY;
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = 2 + Math.random() * 6;
+                    this.vx = Math.cos(angle) * speed;
+                    this.vy = Math.sin(angle) * speed - 1.5;
+                } else {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * -height;
+                    this.vx = (Math.random() - 0.5) * 0.8;
+                    this.vy = 0.7 + Math.random() * 1.3;
+                }
+                this.size = 6 + Math.random() * 8;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotSpeed = (Math.random() - 0.5) * 0.04;
+                this.swayPhase = Math.random() * Math.PI * 2;
+                this.swaySpeed = 0.015 + Math.random() * 0.02;
+                this.alpha = 0.45 + Math.random() * 0.45;
+                // Tonalità rosa ciliegio e oro champagne
+                const palette = [
+                    'rgba(244, 184, 200,',
+                    'rgba(255, 214, 224,',
+                    'rgba(232, 207, 169,',
+                    'rgba(225, 130, 155,'
+                ];
+                this.colorPrefix = palette[Math.floor(Math.random() * palette.length)];
+            }
+
+            update() {
+                this.swayPhase += this.swaySpeed;
+                this.x += this.vx + Math.sin(this.swayPhase) * 0.6;
+                this.y += this.vy;
+                this.rotation += this.rotSpeed;
+
+                // Attrito leggero se nato da un'esplosione
+                this.vx *= 0.99;
+                if (this.vy < 0.8) this.vy += 0.03;
+
+                // Interazione morbida con il cursore / dito
+                if (pointer.active) {
+                    const dx = this.x - pointer.x;
+                    const dy = this.y - pointer.y;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist < 110 && dist > 0) {
+                        const force = (110 - dist) / 110;
+                        this.x += (dx / dist) * force * 2.2;
+                        this.y += (dy / dist) * force * 2.2;
+                    }
+                }
+
+                if (this.y > height + 30 || this.x < -50 || this.x > width + 50) {
+                    this.reset(false);
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                ctx.fillStyle = `${this.colorPrefix} ${this.alpha})`;
+                ctx.shadowColor = 'rgba(244, 184, 200, 0.35)';
+                ctx.shadowBlur = 8;
+
+                // Forma organica del petalo di ciliegio
+                ctx.beginPath();
+                ctx.moveTo(0, -this.size);
+                ctx.bezierCurveTo(this.size * 0.9, -this.size * 0.6, this.size * 0.8, this.size * 0.7, 0, this.size);
+                ctx.bezierCurveTo(-this.size * 0.8, this.size * 0.7, -this.size * 0.9, -this.size * 0.6, 0, -this.size);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // Classe Scintilla Dorata (scia magica del cursore e polvere di stelle)
+        class GoldSparkle {
+            constructor(x, y, isAmbient = false) {
+                this.x = x;
+                this.y = y;
+                this.isAmbient = isAmbient;
+                this.vx = isAmbient ? (Math.random() - 0.5) * 0.3 : (Math.random() - 0.5) * 2.2;
+                this.vy = isAmbient ? -0.2 - Math.random() * 0.4 : (Math.random() - 0.5) * 2.2 - 0.5;
+                this.size = isAmbient ? 1.2 + Math.random() * 1.8 : 1.5 + Math.random() * 2.5;
+                this.life = 1;
+                this.decay = isAmbient ? 0.004 + Math.random() * 0.006 : 0.02 + Math.random() * 0.025;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life -= this.decay;
+                if (this.isAmbient && this.life <= 0) {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.life = 1;
+                }
+            }
+
+            draw() {
+                if (this.life <= 0) return;
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.life);
+                ctx.fillStyle = '#fff0d4';
+                ctx.shadowColor = '#e8cfa9';
+                ctx.shadowBlur = 10;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // Classe Cuore Luminoso per l'esplosione finale
+        class FloatingHeart {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                const angle = -Math.PI / 2 + (Math.random() - 0.5) * 2.4;
+                const speed = 2.5 + Math.random() * 6.5;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.size = 8 + Math.random() * 12;
+                this.life = 1;
+                this.decay = 0.01 + Math.random() * 0.012;
+                this.wobble = Math.random() * Math.PI * 2;
+                this.color = Math.random() > 0.35 ? '#ff7597' : '#e8cfa9';
+            }
+
+            update() {
+                this.wobble += 0.08;
+                this.x += this.vx + Math.sin(this.wobble) * 0.7;
+                this.y += this.vy;
+                this.vy += 0.04; // gravità delicata
+                this.vx *= 0.985;
+                this.life -= this.decay;
+            }
+
+            draw() {
+                if (this.life <= 0) return;
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.scale(this.size / 20, this.size / 20);
+                ctx.globalAlpha = Math.max(0, this.life);
+                ctx.fillStyle = this.color;
+                ctx.shadowColor = this.color;
+                ctx.shadowBlur = 14;
+
+                ctx.beginPath();
+                ctx.moveTo(0, 6);
+                ctx.bezierCurveTo(0, 3, -10, -5, -10, -10);
+                ctx.bezierCurveTo(-10, -16, -2, -16, 0, -10);
+                ctx.bezierCurveTo(2, -16, 10, -16, 10, -10);
+                ctx.bezierCurveTo(10, -5, 0, 3, 0, 6);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // Popolamento iniziale petali e polvere dorata
+        const petalCount = window.innerWidth < 640 ? 28 : 48;
+        for (let i = 0; i < petalCount; i++) {
+            const p = new SakuraPetal(false);
+            p.y = Math.random() * height;
+            petals.push(p);
+        }
+        for (let i = 0; i < 35; i++) {
+            sparkles.push(new GoldSparkle(Math.random() * width, Math.random() * height, true));
+        }
+
+        // Gestione movimenti Mouse & Touch per scia luminosa ed effetto parallasse luna
+        const zenMoon = document.getElementById('zen-moon');
+
+        function handlePointerMove(x, y) {
+            pointer.x = x;
+            pointer.y = y;
+            pointer.active = true;
+
+            // Genera scintille lungo la scia
+            for (let i = 0; i < 2; i++) {
+                sparkles.push(new GoldSparkle(x + (Math.random() - 0.5) * 12, y + (Math.random() - 0.5) * 12, false));
+            }
+
+            // Parallasse delicata sulla luna
+            const offsetX = ((x / width) - 0.5) * -18;
+            const offsetY = ((y / height) - 0.5) * -18;
+            zenMoon.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+        }
+
+        window.addEventListener('mousemove', (e) => handlePointerMove(e.clientX, e.clientY));
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+
+        window.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) {
+                handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+
+        // Loop di animazione principale
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+
+            petals.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            for (let i = sparkles.length - 1; i >= 0; i--) {
+                sparkles[i].update();
+                sparkles[i].draw();
+                if (!sparkles[i].isAmbient && sparkles[i].life <= 0) {
+                    sparkles.splice(i, 1);
+                }
+            }
+
+            for (let i = hearts.length - 1; i >= 0; i--) {
+                hearts[i].update();
+                hearts[i].draw();
+                if (hearts[i].life <= 0) {
+                    hearts.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+
+        /**
+         * 3. LOGICA DI APERTURA SIGILLO & RIVELAZIONE POETICA DEL TESTO
+         */
+        const sealScreen = document.getElementById('seal-screen');
+        const waxSeal = document.getElementById('wax-seal');
+        const openInviteBtn = document.getElementById('open-invite-btn');
+        const invitationContainer = document.getElementById('invitation-container');
+        const mainQuoteEl = document.getElementById('main-quote');
+        const amoreMioWrapper = document.getElementById('amore-mio-wrapper');
+        const detailsGrid = document.getElementById('details-grid');
+        const ctaArea = document.getElementById('cta-area');
+
+        // Frase esatta richiesta dall'utente
+        const invitationText = "Ci vediamo al sushi romance di trecate venerdi sera per una cena intima e romantica";
+        // Parole chiave da enfatizzare con bagliore dorato/rosato
+        const highlightWords = ["sushi", "romance", "trecate", "venerdi", "sera", "intima", "romantica"];
+
+        // Preparazione degli span per l'animazione parola per parola
+        const wordsArray = invitationText.split(" ");
+        wordsArray.forEach((word) => {
+            const span = document.createElement('span');
+            span.textContent = word;
+            span.classList.add('reveal-word');
+            if (highlightWords.includes(word.toLowerCase())) {
+                span.classList.add('highlight');
+            }
+            mainQuoteEl.appendChild(span);
+            mainQuoteEl.appendChild(document.createTextNode(" "));
+        });
+
+        let isOpened = false;
+
+        function openInvitation() {
+            if (isOpened) return;
+            isOpened = true;
+
+            // Avvia dolcemente la melodia romantica al primo clic
+            if (!musicBox.isPlaying) {
+                musicBox.start();
+                audioBtn.classList.add('playing');
+                audioLabel.textContent = 'In ascolto';
+            }
+
+            // Sprigiona una pioggia di petali dal centro dello schermo
+            const centerX = width / 2;
+            const centerY = height / 2;
+            for (let i = 0; i < 36; i++) {
+                petals.push(new SakuraPetal(true, centerX, centerY));
+                sparkles.push(new GoldSparkle(centerX, centerY, false));
+            }
+
+            // Dissolvi il sigillo e mostra la card principale
+            sealScreen.classList.add('opened');
+            invitationContainer.classList.add('visible');
+
+            // Rivela gradualmente le parole della frase principale
+            const wordSpans = mainQuoteEl.querySelectorAll('.reveal-word');
+            wordSpans.forEach((span, idx) => {
+                setTimeout(() => {
+                    span.classList.add('shown');
+                }, 650 + idx * 140);
+            });
+
+            // Rivela "amore mio" dopo la frase principale
+            const totalTextTime = 650 + wordSpans.length * 140 + 250;
+            setTimeout(() => {
+                amoreMioWrapper.classList.add('shown');
+            }, totalTextTime);
+
+            // Rivela i dettagli e il pulsante finale
+            setTimeout(() => {
+                detailsGrid.classList.add('shown');
+            }, totalTextTime + 550);
+
+            setTimeout(() => {
+                ctaArea.classList.add('shown');
+            }, totalTextTime + 900);
+        }
+
+        waxSeal.addEventListener('click', openInvitation);
+        openInviteBtn.addEventListener('click', openInvitation);
+        waxSeal.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') openInvitation();
+        });
+
+
+        /**
+         * 4. CELEBRAZIONE FINALE ("Non vedo l'ora ❤️")
+         */
+        const confirmBtn = document.getElementById('confirm-btn');
+        const confirmedMsg = document.getElementById('confirmed-msg');
+
+        confirmBtn.addEventListener('click', (e) => {
+            const rect = confirmBtn.getBoundingClientRect();
+            const originX = rect.left + rect.width / 2;
+            const originY = rect.top + rect.height / 2;
+
+            // Esplosione celebrativa di cuori luminosi e scintille dorate
+            for (let i = 0; i < 45; i++) {
+                hearts.push(new FloatingHeart(originX, originY));
+            }
+            for (let i = 0; i < 40; i++) {
+                sparkles.push(new GoldSparkle(originX, originY, false));
+                petals.push(new SakuraPetal(true, originX, originY));
+            }
+
+            // Nota musicale acuta di gioia
+            musicBox.playNote(880.00, 3.0, 0.06);
+            setTimeout(() => musicBox.playNote(1046.50, 3.5, 0.05), 180);
+
+            // Sostituisci il pulsante con il dolce messaggio di conferma
+            confirmBtn.style.display = 'none';
+            confirmedMsg.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
